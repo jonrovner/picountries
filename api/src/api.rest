@@ -1,0 +1,10 @@
+POST http://localhost:3001/activity HTTP/1.1
+content-type: application/json
+
+{
+    "country": "Argentina",
+    "name": "prueba",
+    "difficulty": 1,
+    "duration": 30,
+    "season": "winter" 
+}
