@@ -32,7 +32,7 @@ const Countrydetail = () => {
             <p>continent: {country.continent}</p>
             <p>code: {country.code}</p>
 
-            <div>
+            <div className="activities">
                 {
                     country.activities &&
                     country.activities.length > 0 && 

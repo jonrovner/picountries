@@ -7,55 +7,64 @@ const initialState = {
     activities: [],
     activityNames: [],
     offset: -1,
-    pages: 0
+    pages: 0,
+    filters: {continent: "", activity: ""}
 }
 
 
 const rootReducer = (state = initialState, action ) => {
     
+    if (action.type === 'setFilter'){
+        const {name, value} = action.payload
+        
+        if (name === 'continent'){
+
+
+        }
+
+    
+    }
+    
     if (action.type === 'getCountries'){ 
 
         let activitiesdb = action.payload.map( c => c.activities)        
         let activities = activitiesdb.filter(a => a.length>0).flat()
-        console.log("activities in reducer", activities)
-        
-        let activityNames = activities.map( a=> a.name)
-
+        let activityNames = activities.map( a => a.name)
+        let pages = paginate(action.payload)    
         return {
             ...state, 
             countriesfromDB: [...action.payload],
             filterCountries: [...action.payload],
-            pages: new Array( Math.ceil((action.payload.length-9)/10)).fill([]),
-            activities: [...activities],
+            pages,
+            
+            //pages: new Array( Math.ceil((action.payload.length-9)/10)).fill([]),
+            activities,
             activitieNames: [...new Set(activityNames)]
 
         }
     }
 
     if (action.type === 'setFirstCountries'){
-        
-        let indexes = state.pages.map( page => {
-            state.offset+=10
-            return [state.offset]
-        }) 
-
+    
         return {
             ...state, 
-            showingCountries: [...state.filterCountries.slice(0,9)],
-            pages: [...indexes] }
+            showingCountries: [...state.filterCountries.slice(0,9)]
+        }
     }
 
     if (action.type === 'setCountries') {
+        console.log('SETING PAGE', action.paload)
+
         return {
             ...state,
-            showingCountries: [...state.countries.slice(action.payload[0], action.payload[0]+10)]
+            showingCountries: [...state.filterCountries.slice(action.payload, action.payload+10)]
         }
     }
 
     if (action.type === 'getFirstNine'){
         return {
             ...state,
-            showingCountries: [...state.countries.slice(0,9)]
+            showingCountries: [...state.filterCountries.slice(0,9)]
         }
     }
 
@@ -67,48 +76,37 @@ const rootReducer = (state = initialState, action ) => {
     }
 
     if (action.type === 'filterByName'){
+
         return {
             ...state,
-            filterCountries: state.filterCountries.filter( c => c.name.toLowerCase().includes(action.payload.toLowerCase())),
-            showingCountries: state.countries.slice(0,9)
+            filterCountries: state.countriesfromDB.filter( c => c.name.toLowerCase().includes(action.payload.toLowerCase())),
+            showingCountries: state.filterCountries.slice(0,9)
         }
     }
     
     if (action.type === 'filterByContinent'){        
         
-        if(action.payload === "none" ){
-            let pageslength = state.countriesfromDB.length
-            let newOffset = -1
+        if (action.payload === "none" ){
                         
             return{
                 ...state,
-                filterCountries: [...state.filterCountries],
+                filterCountries: [...state.countriesfromDB],
                 offset: -1,
-                pages: [...new Array( Math.ceil((pageslength-9)/10) )
-                    .fill([])
-                    .map( page => {
-                        newOffset+=10
-                        return [newOffset]
-                    })
-                ]
+                pages: [...paginate(state.countriesfromDB)]
 
             }
         }
-                
-        const pageslength = [...state.countriesfromDB.filter( c => c.continent === action.payload )].length        
-        let newOffset = -1
+       
+        let filterCountries = [...state.countriesfromDB.filter( c => c.continent === action.payload )]
+       // console.log('filtered by continent length', filterCountries.length)
+        let pages = paginate(filterCountries)
+       // console.log('pages filtered', pages)
+
         return {
             ...state,            
-            filterCountries: [...state.filterCountries.filter( c => c.continent === action.payload )],
+            filterCountries,
             showingCountries: [...state.filterCountries.slice(0,9)],
-            offset: -1,
-            pages: [...new Array( Math.ceil((pageslength-9)/10) )
-                .fill([])
-                .map( page => {
-                    newOffset+=10
-                    return [newOffset]
-                })
-            ]
+            pages
         }
     }
 
@@ -116,35 +114,47 @@ const rootReducer = (state = initialState, action ) => {
         
         return {
             ...state,
-            countryDetail: {...action.payload.country}
+            countryDetail: action.payload.country
         }
     }
 
     if (action.type === 'filterByActivity'){
 
-        //let newCountries = [...state.showingCountries.filter( country => country.activities).flat()]
         let countriesIds = [] 
+        
         state.activities.forEach(a => {
             if (a.name === action.payload){
             countriesIds.push(a.CountryActivity.countryId)
             }
         })
-        console.log('countriesIds', countriesIds)
+        
         let toShow = []
         countriesIds.forEach( id => {
             toShow.push(state.filterCountries.find( c => c.id === id))
         })
         
-        console.log('countries to show', toShow)
-
         return {...state,
-                filterCountries: [...toShow]    
+                showingCountries: [...toShow.slice(0,9)],
+                pages: [...paginate(toShow)]
             }
     }
     
     else 
    
         return state
+
+}
+
+function paginate(countries){
+    let offset = -1
+    let pages = [...new Array( Math.ceil((countries.length - 9)/10) )
+        .fill([])
+        .map( page => {
+            offset+=10
+            return offset
+        })
+    ] 
+    return pages   
 
 }
 

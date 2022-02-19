@@ -38,7 +38,7 @@ const Filters = () => {
     }
     
     return (
-        <div>
+        <div className="filters">
          <form className='searchForm' action="" onSubmit={(e) => handleSubmit(e)}>
                     <input type="text" onChange={(e) => handleInput(e)} />
                        

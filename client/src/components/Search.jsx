@@ -38,7 +38,7 @@ const Search = () => {
                     return(
                         <div className='pagination' 
                             key={index} 
-                            onClick={()=>dispatch(setCountries(page, page+10))}
+                            onClick={()=>dispatch(setCountries(page))}
                             >
                             {index+1}
                         </div>
