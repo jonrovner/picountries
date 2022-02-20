@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { addActivity } from '../actions';
+import { addActivity, getCountries } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import Countrylist from './CountryList';
@@ -49,6 +49,7 @@ const Create = () => {
            return setValid(validity)
         } else {
             await dispatch(addActivity(input))
+            await dispatch(getCountries())
             return navigate('/countries')
         }
     }
@@ -76,7 +77,7 @@ const Create = () => {
     //console.log('input is : ', input)
 
     return (
-        <div>
+        <div className='create'>
             <form
                 onChange={ (e) => handleInput(e) }
                 onSubmit={(e)=>handleSubmit(e)}> 
