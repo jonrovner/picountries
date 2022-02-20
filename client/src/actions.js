@@ -1,6 +1,7 @@
 import axios from "axios"
 
-export const getCountries = () => {    
+export const getCountries = () => {   
+
     return function (dispatch) {
         console.log("geting all countries")
         return axios.get('http://localhost:3001/countries')
@@ -49,6 +50,22 @@ export const getFirstNine = () =>{
         type: 'getFirstNine'
     }
 }
+
+export const addFilter = (filter) => {
+    
+    return {
+        type: 'addFilter',
+        payload: filter
+    }
+}
+
+export const setSorting = (sorting) => {
+    return {
+        type: 'setSorting',
+        payload: sorting
+    }
+}
+
 export const filterByContinent = (continent) => {
     
     return {
@@ -78,5 +95,11 @@ export const getCountryByCode = (code) => {
             })
         })
     }     
+}
+
+export const clearFilters = () => {
+    return {
+        type: 'clearFilters'
+    }
 }
 
