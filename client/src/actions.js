@@ -11,10 +11,29 @@ export const getCountries = () => {
                 payload: res.data
             }
             
-        )})
-        .catch(err => console.log('EROR GETTING ALL COUNTRIES', err))
+            )})
+            .catch(err => console.log('EROR GETTING ALL COUNTRIES', err))
+        }
     }
-}    
+    
+    export const getActivities = () => {
+        console.log('getting activities')
+        return function(dispatch){
+        return axios.get('http://localhost:3001/countries')
+        .then( res => {            
+            let activitiesDB = res.data.map( c => c.activities)
+            let activities = activitiesDB.filter(a => a.length>0).flat()
+            console.log('activities in db ', activities)
+            dispatch({
+                type: 'getActivities',
+                payload: activities
+            })
+
+
+        })
+
+    }
+}
     
 
 export const addActivity = (activity) => {    

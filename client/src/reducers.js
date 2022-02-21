@@ -11,31 +11,40 @@ const initialState = {
 
 const rootReducer = (state = initialState, action ) => {
 
-    
 
-    const continentfilter = (arr, value) => {
-        return arr.filter( c => c.continent === value)    
+    if (action.type === 'clearFilters'){
+        return {
+            ...state,
+            filters:{continent: null, activity: null, order: null}
+        }
     }
     
-    const activityfilter = (arr, value) => {
-        
-        let countriesIds = [], returnArr = []        
-        
-        state.activities.forEach( a => {
-            if (a.name === value){                
-                countriesIds.push(a.CountryActivity.countryId)
-            }
-        })
-        console.log('countries ids are ', countriesIds)
+    if (action.type === 'addFilter'){
 
-        countriesIds.forEach( id => {
-            returnArr.push(arr.find( c => c.id === id))
-        }) 
+        const continentfilter = (arr, value) => {
+            return arr.filter( c => c.continent === value)    
+        }
         
-        return returnArr.filter(e => e !== undefined)
-    }
-    
-    const orderBy = (arr, value) => {
+        const activityfilter = (arr, value) => {
+            console.log('activities in filter', state.activities, "value", value)
+            
+            let countriesIds = [], returnArr = []        
+            
+            state.activities.forEach( a => {
+                if (a.name === value){                
+                    countriesIds.push(a.CountryActivity.countryId)
+                }
+            })
+            console.log('countries ids are ', countriesIds)
+
+            countriesIds.forEach( id => {
+                returnArr.push(arr.find( c => c.id === id))
+            }) 
+            
+            return returnArr.filter(e => e !== undefined)
+        }
+        
+        const orderBy = (arr, value) => {
     
         if (value === 'az'){
             return arr.sort((a,b) => {
@@ -84,20 +93,14 @@ const rootReducer = (state = initialState, action ) => {
     
                     })
         }
-    }
-    if (action.type === 'clearFilters'){
-        return {
-            ...state,
-            filters:{continent: null, activity: null, order: null}
         }
-    }
-    
-    if (action.type === 'addFilter'){
+        
         let countriesToBeReturned = [], filtersToReturn = {continent:null, activity:null, order:null}
         
         const {name, value} = action.payload 
         
         if (name === 'continent'){           
+            console.log('entering continent')
             
             if (state.filters.activity){     
                 if (state.filters.continent){
@@ -105,18 +108,16 @@ const rootReducer = (state = initialState, action ) => {
                     const filtered = activityfilter(state.countriesfromDB, state.filters.activity)
                     countriesToBeReturned = continentfilter(filtered, value)
                 }  else{
-                    console.log('only activity set')
-                    countriesToBeReturned = continentfilter(state.filterCountries, value)
+                    console.log('only activity set as', state.filters.activity)                    
+                    let filtered = activityfilter(state.countriesfromDB, state.filters.activity)
+                    console.log('filtered is ', filtered)
+                    countriesToBeReturned = continentfilter(filtered, value)
                 }             
                 
             } else {
-                if (state.filters.continent){
-                    console.log('continent already set')                                        
+                
                     countriesToBeReturned = continentfilter(state.countriesfromDB, value)
-                } else {
-                    console.log('none is set')
-                    countriesToBeReturned = continentfilter(state.countriesfromDB, value)
-                }
+                
             }                
             
             console.log('returning from continent :', countriesToBeReturned)
@@ -127,7 +128,7 @@ const rootReducer = (state = initialState, action ) => {
         }
 
         if (name === 'activity'){          
-            console.log('entering activity')                    
+            console.log('entering activity', 'value', value)                    
            
             if (state.filters.continent){
 
@@ -144,8 +145,8 @@ const rootReducer = (state = initialState, action ) => {
             } else {
                 if (state.filters.activity){
                     console.log('activiy is already set')
-                    let filtered = continentfilter(state.countriesfromDB, state.filters.continent)
-                    countriesToBeReturned = activityfilter(filtered, value)
+                    
+                    countriesToBeReturned = activityfilter(state.countriesfromDB, value)
                 } else {
                     console.log('nothing is set')
                     countriesToBeReturned = activityfilter(state.countriesfromDB, value)
@@ -179,7 +180,7 @@ const rootReducer = (state = initialState, action ) => {
         }
 
         
-            
+        console.log('filters to return', filtersToReturn)    
             
         return {
             ...state,
@@ -194,31 +195,28 @@ const rootReducer = (state = initialState, action ) => {
     
     if (action.type === 'getCountries'){ 
 
-        let activitiesdb = action.payload.map( c => c.activities)        
-        let activities = activitiesdb.filter(a => a.length>0).flat()
-        
-        
+       
         return {
             ...state, 
             countriesfromDB: [...action.payload],
             filterCountries: [...action.payload],
-            
-            activities,           
-
+          
         }
     }
 
-    if (action.type === 'setSorting'){
-
-        
-
-
+    if (action.type === 'getActivities'){
+        console.log('gettin activities reducer')                
+        return {
+            ...state,
+            activities: action.payload
+        }
     }
 
+    
     if (action.type === 'addActivity'){
               
         return {...state,
-                activities: [...state.activities, action.payload]
+                //activities: [...state.activities, action.payload]
                 }
     }
 

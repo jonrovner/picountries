@@ -10,8 +10,7 @@ const Results = () => {
     let countries = useSelector(state => state.filterCountries)
     //console.log('countries in Results component: ', countries)
     //let filters = useSelector(state => state.filters)
-    //console.log('filters in component', filters)
-    
+    //console.log('filters in component', filters)    
     //const dispatch = useDispatch() 
 
     const [showing, setShowing] = useState([])        
@@ -49,11 +48,13 @@ const Results = () => {
         <>
         <div className='results'>
             {
-            countries.length > 0 && showing && showing.length > 0 && showing.map( country => { 
+            (countries.length > 0 && showing && showing.length > 0) 
+            ? showing.map( country => { 
                 //console.log('country is ', country)
                 return (<Link 
                 key={country.id} 
                 to={`/countries/${country.code}`}
+                className="countryListItem"
                 >                
                     <CountryCard
                     name={country.name} 
@@ -63,6 +64,15 @@ const Results = () => {
                     />
                 </Link>) }        
             )
+            :
+            (
+                <div className='emptyList'>
+                    <h3>
+                    no countries to show
+
+                    </h3>
+                </div>
+                )
             }
             <br/>
         </div>

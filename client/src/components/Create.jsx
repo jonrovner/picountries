@@ -63,8 +63,8 @@ const Create = () => {
                 ...input,
                 countries: input.countries.filter( c => c !== e.target.name)
             })
-
     }
+    
     const showList = (e) => {
         e.preventDefault()
         setViewList(true)
@@ -78,11 +78,11 @@ const Create = () => {
 
     return (
         <div className='create'>
-            <form
+            <form className='createControls'
                 onChange={ (e) => handleInput(e) }
                 onSubmit={(e)=>handleSubmit(e)}> 
                 <div className='validation'>{valid}</div>
-                <label htmlFor='name'>name</label>
+                <label htmlFor='name'>Name</label>
                 <input name="name" type="text" />
                 <br/>
                 <label htmlFor='difficulty'>difficulty</label>

@@ -20,17 +20,22 @@ const Countrydetail = () => {
     return (
         
         <div className='countryDetails'>
-            <img src={country.flag} alt={country.name} style={{width: "100px"}}/>
-            <h3>
+            <h1>
             {country && country.name}
 
-            </h3>
-            <h5>{country.region}</h5>
-            <p>capital: {country.capital}</p>
-            <p>area: {country.area}</p>
-            <p>population: {country.population}</p>
-            <p>continent: {country.continent}</p>
-            <p>code: {country.code}</p>
+            </h1>
+            <h3>{country.region}</h3>
+            <div className='detailBody'>
+                <div className='info'>
+                    <p>capital: {country.capital}</p>
+                    <p>area: {country.area}</p>
+                    <p>population: {Number(country.population).toLocaleString()}</p>
+                    <p>continent: {country.continent}</p>
+                    <p>code: {country.code}</p>
+
+                </div>
+                <img src={country.flag} alt={country.name} />
+            </div>
 
             <div className="activities">
                 {
