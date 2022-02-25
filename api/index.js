@@ -25,16 +25,14 @@ const axios = require('axios')
 // esta función se ejecuta al iniciar el server y se trae los datos de la restapi a la postgres db
 async function populateDB() { 
   
-  // me traigo todos los paises de la restapi
+  
   let apiCountries = await axios.get('https://restcountries.com/v3/all')
   
-  //creo un array de paises para mi db
   let dbCountries = []
   
-  //por cada pais que devuelve la api 
-    apiCountries.data.forEach( (country) => {                
+  apiCountries.data.forEach( (country) => {                
     
-    //agrego un objeto con los datos pertinentes a mi array de paises  
+  
     dbCountries.push(
       {
         name: country.name.common,
@@ -47,9 +45,8 @@ async function populateDB() {
         continent: country.continents && country.continents[0]
        }
     ) 
-  })
-  
-  // por cada elemento de mi array de paises creo un pais en mi db
+  })  
+ 
   dbCountries.forEach( async dbc => {
     try {       
       const country = await Country.create(dbc)                     

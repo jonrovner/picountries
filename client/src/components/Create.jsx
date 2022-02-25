@@ -1,13 +1,30 @@
-import React, {useState} from 'react';
-import { addActivity, getCountries } from '../actions';
+import React, {useState, useEffect} from 'react';
+import { addActivity, getActivities, getCountries } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import Countrylist from './CountryList';
 
 
 const Create = () => {
+
+    const dispatch = useDispatch()
+    const getActivitiesEffect = async () => {
+        await dispatch(getActivities())
+
+    }
+    useEffect(() => {
+        getActivitiesEffect()
+        return () => {
+            getActivitiesEffect()
+        };
+    }, []);
+
     let navigate = useNavigate()
     const countries = useSelector(state => state.countriesfromDB)
+    const activities = useSelector(state => state.activities)
+    const names = [...new Set(activities.map(a => a.name))]
+    
+    //console.log('activities in create component', names)
     
     let countriesByContinent = {}
     countries.forEach( country => {
@@ -20,8 +37,6 @@ const Create = () => {
         }
     })
 
-    const dispatch = useDispatch()
-    
     const [input, setInput] = useState({countries: []})
     const [valid, setValid] = useState("")
     const [viewList, setViewList] = useState(false)
@@ -46,6 +61,9 @@ const Create = () => {
         }
         if (/[`!@#$%^&*()_+\-=\\{};':"\\|,.<>?~]/.test(input.name)){
             return "no special characters"
+        }
+        if (names.includes(input.name)){
+            return "activity already exists"
         }
         return "valid"
     }
@@ -83,7 +101,7 @@ const Create = () => {
         setViewList(false)
     }
 
-    console.log('input is : ', input)
+    //console.log('input is : ', input)
 
     return (
         <div className='create'>
