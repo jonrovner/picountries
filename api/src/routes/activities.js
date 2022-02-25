@@ -6,28 +6,25 @@ router.post('/', async (req, res) => {
 
     const { countries, name, difficulty, duration, season } = req.body
     
-    try{
+    try {
         const activity = await Activity.create({
             name,
             difficulty,
             duration,
             season,      
         })      
-
-        console.log("CREATED ACTIVITY", activity.name)
+        console.log("CREATED ACTIVITY", activity.name)       
         
-        let countiresDb = []         
-        
-        countries.forEach( async country => {
+        countries.forEach( async countryName => {
             
             try{
                 let countryDb = await Country.findOne({
                     where:{
-                        name: country
+                        name: countryName
                     }
                 })
                 //console.log('FOUND COUNTRY', countryDb.name)
-                countiresDb.push(countryDb)
+                
                 await countryDb.addActivity(activity)
             
             } catch (err) {
@@ -38,10 +35,13 @@ router.post('/', async (req, res) => {
     
         })         
         
-        res.json(activity)   
+        res
+        .status(201)
+        .json(activity)   
 
     } catch (err){
         console.log('ERROR ADDING ACTIVITY', err)
+        res.status(500).json(err)
     }   
  })
 

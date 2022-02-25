@@ -8,23 +8,19 @@ import Pagination from './Pagination';
 const Results = () => {
     
     let countries = useSelector(state => state.filterCountries)
-    //console.log('countries in Results component: ', countries)
-    //let filters = useSelector(state => state.filters)
-    //console.log('filters in component', filters)    
-    //const dispatch = useDispatch() 
-
+   
     const [showing, setShowing] = useState([])        
     
     useEffect(()=>{
         countries && setShowing(countries.slice(0,9))        
     }, [countries] )   
     
-    const paginate = (filtered) => {
+    const paginate = (countries) => {
         let offset = -1
-        let pages = [...new Array( Math.ceil((filtered.length - 9)/10) )
+        let pages = [...new Array( Math.ceil((countries.length - 9)/10) )
             .fill([])
             .map( page => {
-                offset+=10
+                offset += 10
                 return offset
             })
         ] 
@@ -54,7 +50,7 @@ const Results = () => {
                 return (<Link 
                 key={country.id} 
                 to={`/countries/${country.code}`}
-                className="countryListItem"
+                className="resultsItem"
                 >                
                     <CountryCard
                     name={country.name} 

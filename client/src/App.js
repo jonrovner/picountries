@@ -7,7 +7,7 @@ import Search from './components/Search';
 import Home from './components/Home';
 import Navbar from './components/NavBar';
 import Countrydetail from './components/CountryDetail';
-import { getCountries, setFirstCountries } from './actions';
+import { getCountries } from './actions';
 
 
 function App() {
@@ -18,11 +18,9 @@ function App() {
     const getAll = async () => {
         await dispatch(getCountries())        
     }
-    const setFirst = async () => {
-        await dispatch(setFirstCountries())
-    }
+    
 
-    getAll().then(res => setFirst())
+    getAll()
 
 },[dispatch])  
   

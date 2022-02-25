@@ -8,13 +8,13 @@ const Navbar = () => {
     return (
         <div className='navBar'>
             <Link to='/countries'>            
-                <button onClick={()=>{
+                <button className='myButton' onClick={()=>{
                     dispatch(getCountries())
                     dispatch(clearFilters())
                     dispatch(getActivities())}}>Browse</button>            
             </Link>
             <Link to='/create'>            
-                <button>New Activity</button>            
+                <button className='myButton'>New Activity</button>            
             </Link>            
         </div>
     );

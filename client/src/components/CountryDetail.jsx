@@ -15,7 +15,7 @@ const Countrydetail = () => {
 
     const country = useSelector(state => state.countryDetail)
     
-    console.log("country detail: ", country)
+   // console.log("country detail: ", country)
 
     return (
         
@@ -27,11 +27,14 @@ const Countrydetail = () => {
             <h3>{country.region}</h3>
             <div className='detailBody'>
                 <div className='info'>
-                    <p>capital: {country.capital}</p>
-                    <p>area: {country.area}</p>
-                    <p>population: {Number(country.population).toLocaleString()}</p>
-                    <p>continent: {country.continent}</p>
-                    <p>code: {country.code}</p>
+                
+                
+                
+                    <p>Capital: <span>{country.capital}</span></p>
+                    <p>Area: <span>{Number(country.area).toLocaleString()+" mll. km2"}</span></p>
+                    <p>Population: <span>{Number(country.population).toLocaleString()}</span></p>
+                    <p>Continent: <span>{country.continent}</span></p>
+                    <p>Code: <span>{country.code}</span></p>
 
                 </div>
                 <img src={country.flag} alt={country.name} />

@@ -4,9 +4,9 @@ const Activity = ({activity}) => {
     return (
         <div className='activityCard'>
             <h3>{activity.name}</h3>
-            <p>season: {activity.season}</p>
-            <p>duration: {activity.duration}</p>
-            <p>difficulty: {activity.difficulty}</p>
+            <p>Season: {activity.season}</p>
+            <p>Duration: {activity.duration}</p>
+            <p>Difficulty: {activity.difficulty}</p>
             
         </div>
     );

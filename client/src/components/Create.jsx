@@ -9,14 +9,17 @@ const Create = () => {
     let navigate = useNavigate()
     const countries = useSelector(state => state.countriesfromDB)
     
-    const europCountries = countries.filter(country => country.continent === "Europe")
-    const asiaCountries = countries.filter(c => c.continent === "Asia")
-    const NACountries = countries.filter(c => c.continent === "North America")
-    const SACountries = countries.filter(c => c.continent === "South America")
-    const africaCountries = countries.filter(c => c.continent === "Africa")
-    const oceaniaCountries = countries.filter(c => c.continent === "Oceania")
-    const antarCountries = countries.filter(c => c.continent === "Antarctica")
-    
+    let countriesByContinent = {}
+    countries.forEach( country => {
+
+        if (countriesByContinent.hasOwnProperty(country.continent)){
+            countriesByContinent[country.continent].push(country)
+        } else {
+
+            countriesByContinent[country.continent] = [country]
+        }
+    })
+
     const dispatch = useDispatch()
     
     const [input, setInput] = useState({countries: []})
@@ -24,19 +27,25 @@ const Create = () => {
     const [viewList, setViewList] = useState(false)
 
     const handleInput = (e) => {
-        const name = e.target.name
-        const value = e.target.value
+        
+        const {name, value} = e.target
+
+        if (value === "") return
 
         setInput( input => {
             return {
                 ...input,
                 [name]: value} 
         })
+        
     }
 
     const validate = () => {
         if(!input.name || !input.difficulty || !input.season || !input.duration){
             return "all fields must be setted"
+        }
+        if (/[`!@#$%^&*()_+\-=\\{};':"\\|,.<>?~]/.test(input.name)){
+            return "no special characters"
         }
         return "valid"
     }
@@ -74,7 +83,7 @@ const Create = () => {
         setViewList(false)
     }
 
-    //console.log('input is : ', input)
+    console.log('input is : ', input)
 
     return (
         <div className='create'>
@@ -82,48 +91,61 @@ const Create = () => {
                 onChange={ (e) => handleInput(e) }
                 onSubmit={(e)=>handleSubmit(e)}> 
                 <div className='validation'>{valid}</div>
-                <label htmlFor='name'>Name</label>
-                <input name="name" type="text" />
-                <br/>
-                <label htmlFor='difficulty'>difficulty</label>
-                <select name="difficulty" id="">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                <div className='nameInput'>
+                    <label htmlFor='name'>Name</label>
+                    <input name="name" type="text" />
+                </div>            
+                <div className='difficultyFilter'>
+                    <label htmlFor='difficulty'>Difficulty</label>
+                    <select name="difficulty" id="">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
 
-                </select>
-                <br/>
-                <label htmlFor='duration'>duration</label>
-                <input name="duration" type="text" />
-                <br/>
-                <label htmlFor='season'>season</label>
-                <select name="season" id="">
-                    <option value="winter">winter</option>
-                    <option value="spring">spring</option>
-                    <option value="summer">summer</option>
-                    <option value="fall">fall</option>
-                </select>
+                    </select>
 
-                <br/>
-                <button onClick={(e)=>showList(e)}>select countries</button>
-                
-                <button type='submit'>submit</button>
+                </div>
+              
+                <div className='durationInput'>
+
+                    <label htmlFor='duration'>Duration</label>
+                    <input name="duration" type="text" />
+
+                </div>
+           
+                <div className='seasonInput'>
+
+                    <label htmlFor='season'>Season</label>
+                    <select name="season" id="">
+                        <option value="" ></option>
+                        <option value="winter" >Winter</option>
+                        <option value="spring">Spring</option>
+                        <option value="summer">Summer</option>
+                        <option value="fall">Fall</option>
+                    </select>
+                </div>
+     
+                <div className='createButtons'>
+                    <button className="myButton" onClick={(e)=>showList(e)}>select countries</button>
+                    <button className="myButton" type='submit'>submit</button>
+                </div>
 
             </form>
             <form>
                 {
                  viewList && 
                  <>
-                    <Countrylist continent="Europe" countries={europCountries} handleCheckbox={handleCheckbox}/>
-                    <Countrylist continent="Asia" countries={asiaCountries} handleCheckbox={handleCheckbox}/>
-                    <Countrylist continent="North America" countries={NACountries} handleCheckbox={handleCheckbox}/>
-                    <Countrylist continent="South America" countries={SACountries} handleCheckbox={handleCheckbox}/>
-                    <Countrylist continent="Africa" countries={africaCountries} handleCheckbox={handleCheckbox}/>
-                    <Countrylist continent="Oceania" countries={oceaniaCountries} handleCheckbox={handleCheckbox}/>
-                    <Countrylist continent="Antarctica" countries={antarCountries} handleCheckbox={handleCheckbox}/>
-                    <button onClick={(e)=>hideList(e)}>Done</button>
+                    <Countrylist continent="Europe" countries={countriesByContinent.Europe} handleCheckbox={handleCheckbox}/>
+                    <Countrylist continent="Asia" countries={countriesByContinent.Asia} handleCheckbox={handleCheckbox}/>
+                    <Countrylist continent="North America" countries={countriesByContinent['North America']} handleCheckbox={handleCheckbox}/>
+                    <Countrylist continent="South America" countries={countriesByContinent['South America']} handleCheckbox={handleCheckbox}/>
+                    <Countrylist continent="Africa" countries={countriesByContinent.Africa} handleCheckbox={handleCheckbox}/>
+                    <Countrylist continent="Oceania" countries={countriesByContinent.Oceania} handleCheckbox={handleCheckbox}/>
+                    <Countrylist continent="Antarctica" countries={countriesByContinent.Antarctica} handleCheckbox={handleCheckbox}/>
+                    <button className="myButton" onClick={(e)=>hideList(e)}>Done</button>
                  </>                   
 
                 }

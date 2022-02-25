@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { addFilter, filterByName, getCountries, setFirstCountries, clearFilters } from '../actions';
+import { addFilter, filterByName, getCountries, clearFilters } from '../actions';
 
 
 const Filters = () => {
@@ -25,7 +25,7 @@ const Filters = () => {
         e.preventDefault()
         setInput(e.target.value)
         dispatch(filterByName(input))
-        dispatch(setFirstCountries())
+        
     }   
 
     const handleFilters = (e) => {
@@ -39,15 +39,15 @@ const Filters = () => {
         <div className="filters">
          
             <form className='searchForm' action="" onSubmit={(e) => handleSubmit(e)}>
-                        <input type="text" onChange={(e) => handleInput(e)} />
+                        <input className='myInput' type="text" onChange={(e) => handleInput(e)} />
                         
-                            <button type="submit">search by name</button>
+                            <button className='myButton' type="submit">search by name</button>
             </form>    
             <br />
 
             <form id="filterForm" onChange={(e)=>handleFilters(e)}>
 
-                <select name="continent" id="continent">
+                <select className='myButton' name="continent" id="continent">
 
                                 <option value="clear">Continent</option>
                                 <option value="Asia">Asia</option>
@@ -60,7 +60,7 @@ const Filters = () => {
                 </select>
                     
                     
-                <select name="activity" id="activity">
+                <select className='myButton' name="activity" id="activity">
                         <option value="clear">activity</option>
                         {
                             names.length > 0 && names.map( activity => {
@@ -72,7 +72,7 @@ const Filters = () => {
                             }
                 </select>
                 
-                <select name="order" id="order">
+                <select className='myButton' name="order" id="order">
                             <option value="clear">order by</option>
                             <option value="az">A-Z</option>
                             <option value="za">Z-A</option>
@@ -85,7 +85,7 @@ const Filters = () => {
             
             
             </form>    
-            <button onClick={()=>{
+            <button className='myButton' onClick={()=>{
                 dispatch(clearFilters())
                 dispatch(getCountries())
                 document.querySelector('#filterForm').reset()

@@ -10,15 +10,11 @@ module.exports = (sequelize) => {
     },
     flag: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    flag: {
-      type: DataTypes.STRING,
-    },
+      allowNull: true,
+    },    
     code: {
       type: DataTypes.STRING,
       allowNull: false,
-
     },
     capital: {
       type: DataTypes.STRING,
