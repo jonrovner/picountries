@@ -54,9 +54,9 @@ const rootReducer = (state = initialState, action ) => {
     
         if (value === 'az'){
             return arr.sort((a,b) => {
-                        if (a > b) 
+                        if (a.name > b.name) 
                             return 1
-                        if (b > a)
+                        if (b.name > a.name)
                             return -1
                         else
                             return 0
@@ -159,10 +159,10 @@ const rootReducer = (state = initialState, action ) => {
             } 
     
             }                          
-        
-                  
+                          
 
         if (name === "order") {
+            //console.log('ordering by', value)
             
                 countriesToBeReturned = orderBy(state.filterCountries, value)
                 filtersToReturn = {
@@ -170,23 +170,21 @@ const rootReducer = (state = initialState, action ) => {
                     order: value
                 }
         }
-
         
-        console.log('filters to return', filtersToReturn)    
+       // console.log('filters to return', filtersToReturn)
+       // console.log('countries to return', countriesToBeReturned)    
             
         return {
             ...state,
             filterCountries: [...countriesToBeReturned],
             filters: filtersToReturn
-            
-           
+                       
         }
 
     } 
 
     
     if (action.type === 'getCountries'){ 
-
        
         return {
             ...state, 
@@ -217,7 +215,7 @@ const rootReducer = (state = initialState, action ) => {
         return {
             ...state,
             filterCountries: state.countriesfromDB.filter( c => c.name.toLowerCase().includes(action.payload.toLowerCase())),
-            showingCountries: state.filterCountries.slice(0,9)
+            
         }
     }
 

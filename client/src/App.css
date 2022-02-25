@@ -17,7 +17,7 @@ body {
   align-items: center;
   background-color: #7095B2;
   background-image: url('./components/world_countries.png');
- 
+   
 }
 .home img{
   height: 100vh;
@@ -65,6 +65,7 @@ body {
   align-items: center;
   gap:1rem;
 }
+
 .navBar button{
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;

@@ -8,16 +8,16 @@ import Countrylist from './CountryList';
 const Create = () => {
 
     const dispatch = useDispatch()
-    const getActivitiesEffect = async () => {
-        await dispatch(getActivities())
-
-    }
     useEffect(() => {
+        const getActivitiesEffect = async () => {
+            await dispatch(getActivities())
+    
+        }
         getActivitiesEffect()
         return () => {
             getActivitiesEffect()
         };
-    }, []);
+    }, [dispatch]);
 
     let navigate = useNavigate()
     const countries = useSelector(state => state.countriesfromDB)
