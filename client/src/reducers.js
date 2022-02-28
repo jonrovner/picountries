@@ -4,7 +4,8 @@ const initialState = {
     filterCountries: [],
     countryDetail: {},
     activities: [],
-    filters: {continent: null, activity: null, order:null}
+    filters: {continent: null, activity: null, order:null},
+    pages: []
 }
 
 
@@ -32,8 +33,7 @@ const rootReducer = (state = initialState, action ) => {
         }
         
         const activityfilter = (arr, value) => {
-            console.log('activities in filter', state.activities, "value", value)
-            
+           // console.log('activities in filter', state.activities, "value", value)
             let countriesIds = [], returnArr = []        
             
             state.activities.forEach( activity => {
@@ -104,17 +104,18 @@ const rootReducer = (state = initialState, action ) => {
         let countriesToBeReturned = [], filtersToReturn = {continent:null, activity:null, order:null}
         
         const {name, value} = action.payload 
+        console.log('adding filter ', name, 'with value', value)
         
         if (name === 'continent'){           
            // console.log('entering continent')
             
             if (state.filters.activity){     
                 if (state.filters.continent){
-             //       console.log('continent and activity already set')
+                    console.log('continent and activity already set')
                     const filtered = activityfilter(state.countriesfromDB, state.filters.activity)
                     countriesToBeReturned = continentfilter(filtered, value)
                 }  else{
-               //     console.log('only activity set as', state.filters.activity)                    
+                  console.log('only activity set as', state.filters.activity)                    
                     let filtered = activityfilter(state.countriesfromDB, state.filters.activity)
                  //   console.log('filtered is ', filtered)
                     countriesToBeReturned = continentfilter(filtered, value)
@@ -122,9 +123,14 @@ const rootReducer = (state = initialState, action ) => {
                 
             } else {                
                     countriesToBeReturned = continentfilter(state.countriesfromDB, value)                
-            }                
+            }
             
-            //console.log('returning from continent :', countriesToBeReturned)
+            if(state.filters.order){
+                console.log('ordering by', state.filters.order)
+                countriesToBeReturned = orderBy(countriesToBeReturned, state.filters.order )
+            }
+            
+            console.log('returning from continent :', countriesToBeReturned)
             filtersToReturn = 
             {...state.filters,
                 continent: value
@@ -162,9 +168,11 @@ const rootReducer = (state = initialState, action ) => {
                           
 
         if (name === "order") {
-            //console.log('ordering by', value)
             
-                countriesToBeReturned = orderBy(state.filterCountries, value)
+           console.log('ordering by', value, "countries are", state.filterCountries)
+            
+           countriesToBeReturned = orderBy(state.filterCountries, value)
+           console.log('returning from reducer', countriesToBeReturned)
                 filtersToReturn = {
                     ...state.filters,
                     order: value
@@ -227,6 +235,9 @@ const rootReducer = (state = initialState, action ) => {
         }
     }
    
+    if (action.type === 'setPages'){
+        
+    }
     
     else 
    

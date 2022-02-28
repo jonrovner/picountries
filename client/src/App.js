@@ -9,7 +9,8 @@ import Navbar from './components/NavBar';
 import Countrydetail from './components/CountryDetail';
 import { getCountries } from './actions';
 import axios from 'axios';
-axios.defaults.baseURL = process.env.REACT_APP_API || 'http://localhost:3001'
+axios.defaults.baseURL = '/api'
+//|| 'http://localhost:3001'
 
 
 function App() {

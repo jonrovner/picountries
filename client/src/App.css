@@ -63,14 +63,13 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap:1rem;
+  
 }
 
 .navBar button{
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-  padding-right: 1rem;
-  padding-left: 1rem;
+  
   background-color: #02192B;
   color:aliceblue;
   border: none;
@@ -79,10 +78,10 @@ body {
 .myButton{
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
   background-color: #02192B;
   color:aliceblue;
   border: none;
@@ -91,6 +90,8 @@ body {
 }
 
 .myInput{
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
   background-color: #02192B;
   border-radius: 5px;
   color:aliceblue;
@@ -200,15 +201,13 @@ body {
   flex-wrap: wrap;
   justify-content: center;  
   margin-top: 1rem;
-  gap: 0.5rem;
-  
+  gap: 0.5rem;  
 }
 
 .resultsItem{  
   flex: 0 0 calc(25% - 20px);
   background-color: #1E4868;
-  padding: 1.5rem;
-  
+  padding: 1.5rem;  
   text-decoration: none;
 }
 .resultsItem h3{
@@ -269,9 +268,9 @@ body {
 
 }
 
-
 .controls{
   margin-top: 1rem;
+  padding-bottom: 2rem;
   display:flex;
   gap: 0.5rem;
   justify-content: center;

@@ -1,7 +1,8 @@
 import axios from "axios"
 
-export const getCountries = () => {   
+//let base = 'http://localhost:3001/api'
 
+export const getCountries = () => {   
     return function (dispatch) {
         //console.log("geting all countries")
         return axios.get('/countries')
@@ -86,6 +87,12 @@ export const clearFilters = () => {
 export const clearDetails = () => {
     return {
         type: 'clearDetails'
+    }
+}
+
+export const setPages = () => {
+    return {
+        type: 'setPages'
     }
 }
 
