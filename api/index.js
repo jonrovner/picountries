@@ -24,14 +24,12 @@ const axios = require('axios')
 
 // esta función se ejecuta al iniciar el server y se trae los datos de la restapi a la postgres db
 async function populateDB() { 
-  
-  
+    
   let apiCountries = await axios.get('https://restcountries.com/v3/all')
   
   let dbCountries = []
   
-  apiCountries.data.forEach( (country) => {                
-    
+  apiCountries.data.forEach( (country) => {       
   
     dbCountries.push(
       {
@@ -42,7 +40,8 @@ async function populateDB() {
         region: country.subregion ? country.subregion : country.region,
         area: country.area,
         population: country.population,
-        continent: country.continents && country.continents[0]
+        continent: country.continents && country.continents[0],
+        map: country.maps.openStreetMaps
        }
     ) 
   })  

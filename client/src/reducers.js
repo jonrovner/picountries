@@ -235,9 +235,7 @@ const rootReducer = (state = initialState, action ) => {
         }
     }
    
-    if (action.type === 'setPages'){
-        
-    }
+    
     
     else 
    

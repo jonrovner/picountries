@@ -37,6 +37,9 @@ module.exports = (sequelize) => {
     continent: {
       type: DataTypes.STRING,
       
+    },
+    map: {
+      type: DataTypes.STRING
     }
 
   

@@ -7,6 +7,9 @@ const Results = () => {
     
     const countries = useSelector(state => state.filterCountries) 
     //console.log('countries in component', countries)
+    const [showing, setShowing] = useState([])
+    const [current, setCurrent] = useState(0)
+    const [pages, setPages] = useState([]) 
     
     useEffect(() => {
       //  console.log('running pagination effect')
@@ -14,11 +17,8 @@ const Results = () => {
         paginate(countries) 
         setShowing(countries.slice(0,9))        
               
-    },[countries]  )
+    },[countries])
 
-    const [showing, setShowing] = useState([])
-    const [current, setCurrent] = useState(0)
-    const [pages, setPages] = useState([]) 
     
     useEffect(() => {
         if (pages.length > 0){
@@ -44,7 +44,7 @@ const Results = () => {
             pagesEffect[i] = [ (i*10)-1, (i*10)+9 ] 
         }
         if (num > 0){
-            setPages([...pagesEffect])
+            setPages(pagesEffect)
         }  
         //console.log('pages in paginate', pages)   
     } 
@@ -95,7 +95,7 @@ const Results = () => {
         <br/>
         <div className="controls">
             <div className='pagination' onClick={prevPage}>≪</div>   
-                {                                  
+               {                                  
                 pages.length > 0 && pages.map( (page, i) => {
                     return(
                         <div className='pagination' 

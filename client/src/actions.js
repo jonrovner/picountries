@@ -70,10 +70,12 @@ export const getCountryByCode = (code) => {
     return function(dispatch){
         return axios.get(`/countries/${code}` )
         .then( res => {
+            
             dispatch({
                 type: 'getCountryByCode',
                 payload: res.data
             })
+                        
         })
     }     
 }
@@ -90,9 +92,4 @@ export const clearDetails = () => {
     }
 }
 
-export const setPages = () => {
-    return {
-        type: 'setPages'
-    }
-}
 

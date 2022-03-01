@@ -18,7 +18,7 @@ const Countrydetail = () => {
 
     const country = useSelector(state => state.countryDetail)
     
-   // console.log("country detail: ", country)
+   console.log("country detail: ", country)
 
     return (
         
@@ -35,6 +35,10 @@ const Countrydetail = () => {
                     <p>Population: <span>{Number(country.population).toLocaleString()}</span></p>
                     <p>Continent: <span>{country.continent}</span></p>
                     <p>Code: <span>{country.code}</span></p>
+                    <a className='mapLink' 
+                        target='_blank' 
+                        rel='noopener noreferrer' 
+                        href={country.map}>Open Street Map</a>
 
                 </div>
                 <img src={country.flag} alt={country.name} />

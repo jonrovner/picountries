@@ -315,6 +315,10 @@ body {
 .countryDetails img {
   height: 34vh;
 }
+.mapLink {
+  color: #C0DAEE;
+
+}
 .activities{
   display:flex;
   gap: 0.5rem;
