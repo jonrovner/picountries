@@ -51,28 +51,19 @@ const rootReducer = (state = initialState, action ) => {
         }
         
         const orderBy = (arr, value) => {
+            
+            let ascending = arr.sort((a,b)=>{
+                return a.name.localeCompare(b.name)
+            })
     
         if (value === 'az'){
-            return arr.sort((a,b) => {
-                        if (a.name > b.name) 
-                            return 1
-                        if (b.name > a.name)
-                            return -1
-                        else
-                            return 0
-                    })
+            return ascending
         }
             
     
         if (value === 'za'){
-                return arr.sort((a,b) => {
-                        if (a.name > b.name ) 
-                            return -1
-                        if (b.name > a.name)
-                            return 1
-                        else
-                            return 0
-                    })
+            let descending = ascending.reverse()
+                return descending
         }
             
     
@@ -104,18 +95,18 @@ const rootReducer = (state = initialState, action ) => {
         let countriesToBeReturned = [], filtersToReturn = {continent:null, activity:null, order:null}
         
         const {name, value} = action.payload 
-        console.log('adding filter ', name, 'with value', value)
+        //console.log('adding filter ', name, 'with value', value)
         
         if (name === 'continent'){           
            // console.log('entering continent')
             
             if (state.filters.activity){     
                 if (state.filters.continent){
-                    console.log('continent and activity already set')
+                   // console.log('continent and activity already set')
                     const filtered = activityfilter(state.countriesfromDB, state.filters.activity)
                     countriesToBeReturned = continentfilter(filtered, value)
                 }  else{
-                  console.log('only activity set as', state.filters.activity)                    
+                  //console.log('only activity set as', state.filters.activity)                    
                     let filtered = activityfilter(state.countriesfromDB, state.filters.activity)
                  //   console.log('filtered is ', filtered)
                     countriesToBeReturned = continentfilter(filtered, value)
@@ -126,11 +117,11 @@ const rootReducer = (state = initialState, action ) => {
             }
             
             if(state.filters.order){
-                console.log('ordering by', state.filters.order)
+                //console.log('ordering by', state.filters.order)
                 countriesToBeReturned = orderBy(countriesToBeReturned, state.filters.order )
             }
             
-            console.log('returning from continent :', countriesToBeReturned)
+            //console.log('returning from continent :', countriesToBeReturned)
             filtersToReturn = 
             {...state.filters,
                 continent: value
@@ -169,10 +160,10 @@ const rootReducer = (state = initialState, action ) => {
 
         if (name === "order") {
             
-           console.log('ordering by', value, "countries are", state.filterCountries)
+           //console.log('ordering by', value, "countries are", state.filterCountries)
             
            countriesToBeReturned = orderBy(state.filterCountries, value)
-           console.log('returning from reducer', countriesToBeReturned)
+           //console.log('returning from reducer', countriesToBeReturned)
                 filtersToReturn = {
                     ...state.filters,
                     order: value

@@ -16,7 +16,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #7095B2;
-  background-image: url('./components/world_countries.png');
+  background-image: url('./world_countries.png');
    
 }
 .home img{
