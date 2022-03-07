@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { addFilter, filterByName, getCountries, clearFilters } from '../actions';
-
+import './filters.css'
 
 const Filters = () => {
 
@@ -41,7 +41,7 @@ const Filters = () => {
             <form className='searchForm' action="" onSubmit={(e) => handleSubmit(e)}>
                         <input className='myInput' type="text" onChange={(e) => handleInput(e)} />
                         
-                            <button className='myButton' type="submit">search by name</button>
+                            <button className='myButton' type="submit">search</button>
             </form>    
             <br />
 

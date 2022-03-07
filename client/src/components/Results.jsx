@@ -2,6 +2,7 @@ import React, {useEffect, useState, } from 'react';
 import CountryCard from './CountryCard';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import './results.css'
 
 const Results = () => {
     
@@ -68,6 +69,23 @@ const Results = () => {
     //console.log('pages in component', pages) 
     return (
         <>
+        <div className="controls">
+            <div className='pagination show' onClick={prevPage}>≪</div>   
+               {                                  
+                pages.length > 0 && pages.map( (page, i) => {
+                    return(
+                        <div className='pagination' 
+                            key={i} 
+                            onClick={()=>handlePagesIndex(i)}
+                            >
+                            {i+1}
+                        </div>
+                    )
+                })           
+                }
+
+            <div className='pagination show' onClick={()=>{nextPage()}}>≫</div>    
+        </div>
         <div className='results'>
             {
             (countries.length > 0 && showing && showing.length > 0) 
@@ -93,23 +111,7 @@ const Results = () => {
             }
         </div>
         <br/>
-        <div className="controls">
-            <div className='pagination' onClick={prevPage}>≪</div>   
-               {                                  
-                pages.length > 0 && pages.map( (page, i) => {
-                    return(
-                        <div className='pagination' 
-                            key={i} 
-                            onClick={()=>handlePagesIndex(i)}
-                            >
-                            {i+1}
-                        </div>
-                    )
-                })           
-                }
-
-            <div className='pagination' onClick={()=>{nextPage()}}>≫</div>    
-        </div>
+        
             
         </>
     );

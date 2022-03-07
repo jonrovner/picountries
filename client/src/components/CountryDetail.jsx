@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCountryByCode, clearDetails } from '../actions';
 import { useParams } from 'react-router';
 import Activity from './Activity';
+import './countryDetail.css'
 
 const Countrydetail = () => {
 
@@ -18,15 +19,18 @@ const Countrydetail = () => {
 
     const country = useSelector(state => state.countryDetail)
     
-   console.log("country detail: ", country)
+   //console.log("country detail: ", country)
 
     return (
         
         <div className='countryDetails'>
-            <h1>
-            {country && country.name}
-            </h1>
-            <h3>{country.region}</h3>
+            <div className='detailTitle'>
+                <h1>
+                {country && country.name}
+                </h1>
+                <h3>{country.region}</h3>
+
+             </div>
             <div className='detailBody'>
                 <div className='info'>
                 
@@ -35,10 +39,14 @@ const Countrydetail = () => {
                     <p>Population: <span>{Number(country.population).toLocaleString()}</span></p>
                     <p>Continent: <span>{country.continent}</span></p>
                     <p>Code: <span>{country.code}</span></p>
-                    <a className='mapLink' 
+                    {
+                        country.map && <a className='mapLink' 
                         target='_blank' 
                         rel='noopener noreferrer' 
-                        href={country.map}>Open Street Map</a>
+                        href={country.map}>Google Maps</a>
+                    }
+                    
+                    
 
                 </div>
                 <img src={country.flag} alt={country.name} />

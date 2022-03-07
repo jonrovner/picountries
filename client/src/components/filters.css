@@ -1,0 +1,30 @@
+.filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: 600px){
+
+    #filterForm {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 0.5rem;
+    }
+
+    .searchForm{
+          display: flex;
+          flex-direction: row;
+    }
+    .searchForm input{
+          width: 8rem;
+    }
+    .searchForm button{
+          width: 4rem;
+          display: inline-block;
+    }
+
+  }

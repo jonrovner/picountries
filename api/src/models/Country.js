@@ -40,9 +40,8 @@ module.exports = (sequelize) => {
     },
     map: {
       type: DataTypes.STRING
-    }
-
-  
+    },
+    
   }, {timestamps: false});
   
 };

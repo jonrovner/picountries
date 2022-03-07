@@ -1,0 +1,18 @@
+.countryCard{ 
+    padding-top: 1rem;   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color:#C0DAEE;
+  }
+  .countryCard img{
+    width: 75%;
+    height: 35%;
+  }
+  .countryCard:hover{
+    background-color: #7095B2;
+    color: #02192B;
+    
+    
+  }

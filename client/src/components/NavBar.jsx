@@ -7,6 +7,11 @@ const Navbar = () => {
     const dispatch = useDispatch()
     return (
         <div className='navBar'>
+            <Link to='/'>
+                <div className='logo'></div>
+            </Link>
+            <div>
+
             <Link to='/countries'>            
                 <button className='myButton' onClick={()=>{
                     dispatch(getCountries())
@@ -16,6 +21,9 @@ const Navbar = () => {
             <Link to='/create'>            
                 <button className='myButton'>New Activity</button>            
             </Link>            
+
+            </div>
+
         </div>
     );
 }

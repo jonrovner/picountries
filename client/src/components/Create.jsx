@@ -3,6 +3,7 @@ import { addActivity, getActivities, getCountries } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import Countrylist from './CountryList';
+import './create.css'
 
 
 const Create = () => {
@@ -65,6 +66,9 @@ const Create = () => {
         if (names.includes(input.name)){
             return "activity already exists"
         }
+        if (input.countries.length < 1){
+            return "you must select 1 country at least"
+        }
         return "valid"
     }
 
@@ -108,6 +112,7 @@ const Create = () => {
             <form className='createControls'
                 onChange={ (e) => handleInput(e) }
                 onSubmit={(e)=>handleSubmit(e)}> 
+                <h4>Create new Activity</h4>
                 <div className='validation'>{valid}</div>
                 <div className='nameInput'>
                     <label htmlFor='name'>Name</label>
@@ -124,13 +129,22 @@ const Create = () => {
                         <option value="5">5</option>
 
                     </select>
+                    
 
                 </div>
               
                 <div className='durationInput'>
 
-                    <label htmlFor='duration'>Duration</label>
-                    <input name="duration" type="text" />
+                <label htmlFor='duration'>Duration</label>
+                    <select name="duration" id="">
+                        <option value=""></option>
+                        <option value="less than 2 hr">less than 2 hr</option>
+                        <option value="2hr">around 2 hr</option>
+                        <option value="half day">half day</option>
+                        <option value="whole day">whole day</option>
+                        
+
+                    </select>
 
                 </div>
            
@@ -152,7 +166,7 @@ const Create = () => {
                 </div>
 
             </form>
-            <form>
+            <form className='selectCountries'>
                 {
                  viewList && 
                  <>
@@ -164,11 +178,8 @@ const Create = () => {
                     <Countrylist continent="Oceania" countries={countriesByContinent.Oceania} handleCheckbox={handleCheckbox}/>
                     <Countrylist continent="Antarctica" countries={countriesByContinent.Antarctica} handleCheckbox={handleCheckbox}/>
                     <button className="myButton" onClick={(e)=>hideList(e)}>Done</button>
-                 </>                   
-
+                 </>       
                 }
-
-                
             </form>
             
         </div>

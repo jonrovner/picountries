@@ -1,0 +1,11 @@
+.search{
+    position: relative;
+    margin-left: 1rem;
+    margin-right: 1rem;  
+    height: 90vh;  
+    margin-top: 1rem
+  }
+
+  .search * {
+    margin-bottom: 0.25rem;
+  }

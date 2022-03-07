@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import {  getActivities } from '../actions';
 import Results from './Results';
 import Filters from './Filters';
+import './search.css'
 
 const Search = () => {
         

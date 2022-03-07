@@ -1,0 +1,92 @@
+.countryDetails{
+    display: flex;    
+    flex-direction: column;
+    align-items: center;   
+    justify-content: center; 
+    gap:1rem;
+    color:#C0DAEE
+  }
+  .countryDetails h1 {  
+    color:aliceblue;
+    justify-self: flex-start;
+  }
+  .countryDetails h3 {  
+    color:aliceblue;
+    padding: 0;
+  }
+  .detailBody{
+   
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-self: center;
+  }
+  .detailTitle{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: -10px;
+  }
+  .detailTitle h1{
+    margin-bottom: 0;
+  }
+  .detailTitle h3{
+    margin-bottom: 3rem;
+  }
+
+  .info{    
+    background-color: #02192B;
+    padding: 1rem;
+    font-size: smaller;   
+  }
+  .info span {
+    font-weight: bold;
+  }
+  
+  .countryDetails img {
+    width: 30vw;
+      
+  }
+  .mapLink {
+    color: #C0DAEE;
+  
+  }
+  .activities{
+    display:flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    justify-self: left;
+  }
+  .activityCard{
+    background-color: #02192B;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+  .activityCard p {
+    font-size: smaller;
+    line-height: 0.4rem;
+  }
+  
+@media (max-width: 600px){
+    .detailBody{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .info{
+        order: 1;
+    }
+    .countryDetails img {
+        height: 15vh;
+    }
+    .activityCard h3 {
+      font-size: 1rem;
+    }
+
+}  

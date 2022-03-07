@@ -31,7 +31,8 @@ async function populateDB() {
   
   apiCountries.data.forEach( (country) => {       
   
-    dbCountries.push(
+   
+  dbCountries.push(
       {
         name: country.name.common,
         flag: country.flags[0],
@@ -41,7 +42,8 @@ async function populateDB() {
         area: country.area,
         population: country.population,
         continent: country.continents && country.continents[0],
-        map: country.maps.openStreetMaps
+        map: country.maps.googleMaps,
+        
        }
     ) 
   })  

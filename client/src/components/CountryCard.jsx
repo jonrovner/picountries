@@ -1,4 +1,5 @@
 import React from 'react';
+import './countryCard.css'
 
 const CountryCard = (props) => {
     
